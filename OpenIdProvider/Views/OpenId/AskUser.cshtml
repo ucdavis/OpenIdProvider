@@ -1,4 +1,5 @@
-﻿@{
+﻿@using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration
+@{
     ViewBag.Title = "LogOn Confirm";
 }
 <h2>
@@ -9,6 +10,15 @@
 </p>
 @using (Html.BeginForm("AskUserConfirm", "OpenId")) {
     @Html.AntiForgeryToken()
+    
+    if (ViewBag.ClaimsRequest != null) {
+        <div class="claims">
+            @if (ViewBag.ClaimsRequest.Email == DemandLevel.Request)
+            {
+                <text>Your email is being requested and will be sent to the requesting site if you click "yes"</text>
+            }
+        </div>   
+    }
     
     <div class="responseform">
         <input type="submit" value="yes" />

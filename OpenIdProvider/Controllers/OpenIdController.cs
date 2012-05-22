@@ -69,6 +69,8 @@ namespace OpenIdProvider.Controllers
                 return response;
             }
 
+            ViewBag.ClaimsRequest = ProviderEndpoint.PendingRequest.GetExtension<ClaimsRequest>();
+
             this.ViewData["Realm"] = ProviderEndpoint.PendingRequest.Realm;
 
             return this.View();
