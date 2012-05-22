@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "LogOn Confirm";
+}
+<h2>
+    Logging in somewhere?
+</h2>
+<p>
+    Are you trying to log into <b>@ViewData["Realm"]</b>?
+</p>
+@using (Html.BeginForm("AskUserConfirm", "OpenId")) {
+    @Html.AntiForgeryToken()
+    
+    <div class="responseform">
+        <input type="submit" value="yes" />
+        |
+         @Html.ActionLink("No", "Index", "Home")
+    </div>
+}

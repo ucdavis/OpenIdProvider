@@ -74,16 +74,20 @@ namespace OpenIdProvider.Controllers
             return this.View();
         }
 
+        /// <summary>
+        /// User responded in the affirmative
+        /// </summary>
+        /// <returns></returns>
         [HttpPost, Authorize, ValidateAntiForgeryToken]
-        public ActionResult AskUserResponse(bool confirmed)
+        public ActionResult AskUserConfirm()
         {
             if (ProviderEndpoint.PendingAnonymousRequest != null)
             {
-                ProviderEndpoint.PendingAnonymousRequest.IsApproved = confirmed;
+                ProviderEndpoint.PendingAnonymousRequest.IsApproved = true;
             }
             else if (ProviderEndpoint.PendingAuthenticationRequest != null)
             {
-                ProviderEndpoint.PendingAuthenticationRequest.IsAuthenticated = confirmed;
+                ProviderEndpoint.PendingAuthenticationRequest.IsAuthenticated = true;
             }
             else
             {
