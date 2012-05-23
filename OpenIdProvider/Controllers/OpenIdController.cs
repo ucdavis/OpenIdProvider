@@ -166,16 +166,17 @@ namespace OpenIdProvider.Controllers
                 {
                     var fetchResponse = new FetchResponse();
 
-                    var alias = fetchRequest.Attributes[WellKnownAttributes.Name.Alias];
-                    if (alias != null && alias.IsRequired)
+                    foreach (var attribute in fetchRequest.Attributes)
                     {
-                        fetchResponse.Attributes.Add(new AttributeValues(WellKnownAttributes.Name.Alias, User.Identity.Name));
-                    }
-
-                    var employeeId = fetchRequest.Attributes["http://ucdavis.edu/person/employeeid"];
-                    if (employeeId != null && employeeId.IsRequired)
-                    {
-                        fetchResponse.Attributes.Add(new AttributeValues("EmployeeID", "123456789"));
+                        switch (attribute.TypeUri)
+                        {
+                            case WellKnownAttributes.Name.Alias:
+                                fetchResponse.Attributes.Add(new AttributeValues(WellKnownAttributes.Name.Alias, User.Identity.Name));
+                                break;
+                            case "http://ucdavis.edu/person/employeeid":
+                                fetchResponse.Attributes.Add(new AttributeValues("http://ucdavis.edu/person/employeeid", "123456789"));
+                                break;
+                        }
                     }
 
                     pendingRequest.AddResponseExtension(fetchResponse);
