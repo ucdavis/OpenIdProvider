@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using DotNetOpenAuth.Messaging;
+using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
 using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
 using DotNetOpenAuth.OpenId.Provider;
 using DotNetOpenAuth.OpenId.Provider.Behaviors;
@@ -158,6 +159,25 @@ namespace OpenIdProvider.Controllers
                     }
 
                     pendingRequest.AddResponseExtension(claimsResponse);
+                }
+
+                var fetchRequest = pendingRequest.GetExtension<FetchRequest>();
+                if (fetchRequest != null)
+                {
+                    var fetchResponse = new FetchResponse();
+
+                    var alias = fetchRequest.Attributes[WellKnownAttributes.Name.Alias];
+                    if (alias != null && alias.IsRequired)
+                    {
+                        fetchResponse.Attributes.Add(new AttributeValues(WellKnownAttributes.Name.Alias, User.Identity.Name));
+                    }
+
+                    if (fetchRequest.Attributes["EmployeeID"].IsRequired)
+                    {
+                        fetchResponse.Attributes.Add(new AttributeValues("EmployeeID", "123456789"));
+                    }
+
+                    pendingRequest.AddResponseExtension(fetchResponse);
                 }
             }
 
