@@ -172,7 +172,8 @@ namespace OpenIdProvider.Controllers
                         fetchResponse.Attributes.Add(new AttributeValues(WellKnownAttributes.Name.Alias, User.Identity.Name));
                     }
 
-                    if (fetchRequest.Attributes["EmployeeID"].IsRequired)
+                    var employeeId = fetchRequest.Attributes["http://ucdavis.edu/person/employeeid"];
+                    if (employeeId != null && employeeId.IsRequired)
                     {
                         fetchResponse.Attributes.Add(new AttributeValues("EmployeeID", "123456789"));
                     }
