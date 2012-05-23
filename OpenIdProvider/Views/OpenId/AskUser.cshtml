@@ -18,6 +18,12 @@
                 <text>Your email is being requested and will be sent to the requesting site if you click "yes"</text>
             }
         </div>   
+        <div class="fetch">
+            @if (!string.IsNullOrWhiteSpace(ViewBag.FetchRequest))
+            {
+                <text>The requesting site will be give the following information: @ViewBag.FetchRequest</text>
+            }
+        </div>
     }
     
     <div class="responseform">

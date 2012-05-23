@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
@@ -71,6 +72,10 @@ namespace OpenIdProvider.Controllers
             }
 
             ViewBag.ClaimsRequest = ProviderEndpoint.PendingRequest.GetExtension<ClaimsRequest>();
+
+            ViewBag.FetchRequest = string.Join(", ",
+                                               ProviderEndpoint.PendingRequest.GetExtension<FetchRequest>().Attributes.
+                                                   Select(x => x.TypeUri));
 
             this.ViewData["Realm"] = ProviderEndpoint.PendingRequest.Realm;
 
