@@ -73,10 +73,13 @@ namespace OpenIdProvider.Controllers
 
             ViewBag.ClaimsRequest = ProviderEndpoint.PendingRequest.GetExtension<ClaimsRequest>();
 
-            ViewBag.FetchRequest = string.Join(", ",
-                                               ProviderEndpoint.PendingRequest.GetExtension<FetchRequest>().Attributes.
-                                                   Select(x => x.TypeUri));
+            var fetchRequest = ProviderEndpoint.PendingRequest.GetExtension<FetchRequest>();
 
+            if (fetchRequest != null)
+            {
+                ViewBag.FetchRequest = string.Join(", ", fetchRequest.Attributes.Select(x => x.TypeUri));
+            }
+            
             this.ViewData["Realm"] = ProviderEndpoint.PendingRequest.Realm;
 
             return this.View();
