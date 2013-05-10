@@ -13,4 +13,8 @@ I've created sample OpenID consumers using multiple frameworks and languages to 
 - [http://openidrelay-net.azurewebsites.net/](http://openidrelay-net.azurewebsites.net/): ASP.NET 4.0
 - [http://openidrelay-nodejs.azurewebsites.net/](http://openidrelay-nodejs.azurewebsites.net/): Node.js
 
-In each example, simply visit the site and attempt login or visit the Member's Only page
+In each example, simply visit the site and attempt to log in or visit the Member's Only page.
+
+1. You will be asked to provide the OpenID endpoint you wish to use
+
+1. asdasdas
