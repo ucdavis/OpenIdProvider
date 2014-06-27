@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+<?xml version="1.0" encoding="UTF-8" ?>
+<xrds:xrds xmlns:xrds="xri://$xrds"
+           xmlns:openid="http://openid.net/xmlns/1.0"
+           xmlns="xri://$xrd*($v*2.0)">
+    <xrd>
+        <service priority="10">
+            @if (ViewBag.OpIdentifier != null)
+            {
+                <type>http://specs.openid.net/auth/2.0/server</type>
+            }
+            else
+            {
+                <type>http://specs.openid.net/auth/2.0/signon</type>
+            }
+            <type>http://openid.net/extensions/sreg/1.1</type>
+            <type>http://axschema.org/contact/email</type>
+
+            <uri>@(new Uri(Request.Url, Response.ApplyAppPathModifier("~/OpenId/Provider")))</uri>
+        </service>
+    @if (ViewBag.OpIdentifier == null)
+    {
+        <service priority="20">
+            <type>http://openid.net/signon/1.0</type>
+            <type>http://openid.net/extensions/sreg/1.1</type>
+            <type>http://axschema.org/contact/email</type>
+            <uri>@(new Uri(Request.Url, Response.ApplyAppPathModifier("~/OpenId/Provider")))</uri>
+        </service>
+    }
+    </xrd>
+</xrds:xrds>

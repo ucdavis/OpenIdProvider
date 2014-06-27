@@ -1,19 +1,22 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace OpenIdProvider.Controllers
 {
     public class HomeController : Controller
     {
+        [OutputCache(Duration = 86400, VaryByParam = "none", VaryByHeader = "accept", Location = OutputCacheLocation.Any)]
         public ActionResult Index()
         {
             Debug.Assert(Request != null, "Request != null");
             Debug.Assert(Request.AcceptTypes != null, "Request.AcceptTypes != null");
 
-            if (Request.AcceptTypes.Contains("application/xrds+xml"))
+            if (Request.AcceptTypes.Contains("application/xrds+xml", StringComparer.OrdinalIgnoreCase))
             {
-                ViewData["OPIdentifier"] = true; //return xrds if this is an openId request
+                ViewBag.OpIdentifier = true; //return xrds if this is an openId request
                 return View("Xrds");
             }
             
