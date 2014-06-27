@@ -42,8 +42,8 @@ namespace OpenIdProvider.Controllers
                     return this.SendAssertion();
                 }
                 
-                return this.RedirectToAction("SilentConfirm");
-//                return this.RedirectToAction("AskUser");
+                //return this.RedirectToAction("SilentConfirm");
+                return this.RedirectToAction("AskUser");
             }
             else
             {
