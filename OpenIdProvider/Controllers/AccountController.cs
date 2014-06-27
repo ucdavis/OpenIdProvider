@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
-using UCDArch.Web.Authentication;
+//using UCDArch.Web.Authentication;
 
 namespace OpenIdProvider.Controllers
 {
@@ -8,7 +8,8 @@ namespace OpenIdProvider.Controllers
     {
         public ActionResult LogOn(string returnUrl)
         {
-            string resultUrl = CASHelper.Login(); //Do the CAS Login
+            string resultUrl = null;
+            //string resultUrl = CASHelper.Login(); //Do the CAS Login
 
             if (resultUrl != null)
             {
