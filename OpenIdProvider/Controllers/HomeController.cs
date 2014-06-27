@@ -8,7 +8,7 @@ namespace OpenIdProvider.Controllers
 {
     public class HomeController : Controller
     {
-        [OutputCache(Duration = 86400, VaryByParam = "none", VaryByHeader = "accept", Location = OutputCacheLocation.Any)]
+        //[OutputCache(Duration = 86400, VaryByParam = "none", VaryByHeader = "accept", Location = OutputCacheLocation.Any)]
         public ActionResult Index()
         {
             Debug.Assert(Request != null, "Request != null");
