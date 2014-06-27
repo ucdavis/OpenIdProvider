@@ -114,10 +114,6 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="UCDArch, Version=5.1.0.133, Culture=neutral, PublicKeyToken=667f3cb07abadf4b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\UcdArch.5.1.0.133\lib\net451\UCDArch.dll</HintPath>
-    </Reference>
     <Reference Include="WebActivator, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebActivator.1.2.0.0\lib\NETFramework40\WebActivator.dll</HintPath>
@@ -129,6 +125,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OpenIdController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Helpers\Cas.cs" />
     <Compile Include="Helpers\Util.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Global.asax.cs">
