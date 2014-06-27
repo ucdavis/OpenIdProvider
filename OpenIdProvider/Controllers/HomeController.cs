@@ -17,7 +17,6 @@ namespace OpenIdProvider.Controllers
             if (Request.AcceptTypes.Contains("application/xrds+xml", StringComparer.OrdinalIgnoreCase))
             {
                 ViewBag.OpIdentifier = true; //return xrds if this is an openId request
-                ControllerContext.HttpContext.Response.ContentType = "application/xrds+xml";
                 return View("Xrds");
             }
             
