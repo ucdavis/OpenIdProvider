@@ -22,7 +22,7 @@ namespace OpenIdProvider.Controllers
                 // Some requests are automatically handled by DotNetOpenAuth.  If this is one, go ahead and let it go.
                 if (request.IsResponseReady)
                 {
-                    return OpenIdProvider.PrepareResponse(request).AsActionResult();
+                    return OpenIdProvider.PrepareResponse(request).AsActionResultMvc5();
                 }
 
                 // This is apparently one that the host (the web site itself) has to respond to.
@@ -239,7 +239,7 @@ namespace OpenIdProvider.Controllers
                 }
             }
 
-            return OpenIdProvider.PrepareResponse(pendingRequest).AsActionResult();
+            return OpenIdProvider.PrepareResponse(pendingRequest).AsActionResultMvc5();
         }
 
         /// <summary>
