@@ -42,13 +42,61 @@ namespace OpenIdProvider.Controllers
                     return this.SendAssertion();
                 }
 
-                return this.RedirectToAction("AskUser");
+                return this.RedirectToAction("SilentAccept");
+                //return this.RedirectToAction("AskUser");
             }
             else
             {
                 // No OpenID request was recognized.  This may be a user that stumbled on the OP Endpoint.  
                 return this.View();
             }
+        }
+
+        /// <summary>
+        /// Login the user with an attribute release confirmation (since there are no attributes being released yet)
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        public ActionResult SilentAccept()
+        {
+            if (ProviderEndpoint.PendingRequest == null)
+            {
+                // Oops... precious little we can confirm without a pending OpenID request.
+                return this.RedirectToAction("Index", "Home");
+            }
+
+            // The user MAY have just logged in.  Try again to respond automatically to the RP if appropriate.
+            ActionResult response;
+            if (this.AutoRespondIfPossible(out response))
+            {
+                return response;
+            }
+
+            ViewBag.ClaimsRequest = ProviderEndpoint.PendingRequest.GetExtension<ClaimsRequest>();
+
+            var fetchRequest = ProviderEndpoint.PendingRequest.GetExtension<FetchRequest>();
+
+            if (fetchRequest != null)
+            {
+                ViewBag.FetchRequest = string.Join(", ", fetchRequest.Attributes.Select(x => x.TypeUri));
+            }
+
+            this.ViewData["Realm"] = ProviderEndpoint.PendingRequest.Realm;
+
+            if (ProviderEndpoint.PendingAnonymousRequest != null)
+            {
+                ProviderEndpoint.PendingAnonymousRequest.IsApproved = true;
+            }
+            else if (ProviderEndpoint.PendingAuthenticationRequest != null)
+            {
+                ProviderEndpoint.PendingAuthenticationRequest.IsAuthenticated = true;
+            }
+            else
+            {
+                throw new InvalidOperationException("There's no pending authentication request!");
+            }
+
+            return this.SendAssertion();
         }
 
         /// <summary>
